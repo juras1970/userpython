@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Usuários</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="min-h-screen" style="background-color: var(--bg);">
+
+  <div class="max-w-4xl mx-auto px-6 py-10 md:py-14">
+
+    <!-- Cabeçalho -->
+    <header class="mb-10 flex items-end justify-between border-b pb-6" style="border-color: var(--border);">
+      <div>
+        <p class="text-sm mb-1" style="color: var(--accent); font-family: 'Inter', sans-serif; font-weight: 600;">Painel interno</p>
+        <h1 class="text-3xl md:text-4xl" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--ink);">
+          Registro de Usuários
+        </h1>
+      </div>
+      <div class="text-right hidden sm:block">
+        <p class="text-sm" style="color: var(--ink-soft);">Total cadastrado</p>
+        <p id="totalCount" class="text-2xl" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: var(--ink);">0</p>
+      </div>
+    </header>
+
+    <!-- Aviso de erro -->
+    <div id="alertBox" class="hidden mb-6 px-4 py-3 text-sm rounded" style="background-color: #FBEAE5; color: #8A3221; border: 1px solid #E3B6A8;"></div>
+
+    <!-- Formulário -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wide mb-4" style="color: var(--ink-soft); font-family: 'Inter', sans-serif; letter-spacing: 0.06em;">
+        <span id="formLabel">Novo usuário</span>
+      </h2>
+      <form id="userForm" class="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-3 items-start">
+        <input type="hidden" id="userId" />
+        <div>
+          <input
+            type="text"
+            id="nameInput"
+            placeholder="Nome completo"
+            class="w-full px-4 py-3 text-sm outline-none transition"
+            style="border: 1px solid var(--border); background: #fff; color: var(--ink); border-radius: 6px;"
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="email"
+            id="emailInput"
+            placeholder="email@exemplo.com"
+            class="w-full px-4 py-3 text-sm outline-none transition"
+            style="border: 1px solid var(--border); background: #fff; color: var(--ink); border-radius: 6px;"
+            required
+          />
+        </div>
+        <div class="flex gap-2">
+          <button
+            type="submit"
+            id="submitBtn"
+            class="px-5 py-3 text-sm font-medium transition whitespace-nowrap"
+            style="background-color: var(--accent); color: #fff; border-radius: 6px;"
+          >
+            Adicionar
+          </button>
+          <button
+            type="button"
+            id="cancelBtn"
+            class="hidden px-4 py-3 text-sm font-medium transition whitespace-nowrap"
+            style="background-color: transparent; color: var(--ink-soft); border: 1px solid var(--border); border-radius: 6px;"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Tabela / Ledger -->
+    <section>
+      <h2 class="text-xs uppercase tracking-wide mb-4" style="color: var(--ink-soft); font-family: 'Inter', sans-serif; letter-spacing: 0.06em;">
+        Usuários cadastrados
+      </h2>
+
+      <div id="emptyState" class="hidden text-center py-16" style="border: 1px dashed var(--border); border-radius: 6px;">
+        <p style="color: var(--ink-soft);">Nenhum usuário cadastrado ainda.</p>
+        <p class="text-sm mt-1" style="color: var(--ink-soft);">Use o formulário acima para adicionar o primeiro.</p>
+      </div>
+
+      <div id="tableWrapper" class="hidden overflow-x-auto">
+        <table class="w-full text-sm" style="border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--ink);">
+              <th class="text-left py-3 pr-4 font-medium" style="color: var(--ink-soft); width: 3rem;">#</th>
+              <th class="text-left py-3 pr-4 font-medium" style="color: var(--ink-soft);">Nome</th>
+              <th class="text-left py-3 pr-4 font-medium" style="color: var(--ink-soft);">Email</th>
+              <th class="text-left py-3 pr-4 font-medium" style="color: var(--ink-soft);">Criado em</th>
+              <th class="text-right py-3 pl-4 font-medium" style="color: var(--ink-soft);">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
